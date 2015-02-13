@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{ee4cfb3f-d3d3-4aed-a5e1-729604368f66}</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{fcdbbf14-aeb4-4de3-8dfd-37a85eb25ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\impl">
+      <UniqueIdentifier>{b06089ab-0b90-4ee7-a9b8-0810fd68b5b1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MainPage.xaml.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainPage.xaml.h" />
+    <ClInclude Include="include\pplpp.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\winrtcontexcallback.h">
+      <Filter>Include\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\ppltimer.h">
+      <Filter>Include\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\pplppimplshare.h">
+      <Filter>Include\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\impl\pplppimplvs12.h">
+      <Filter>Include\impl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestHarness.Windows_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
