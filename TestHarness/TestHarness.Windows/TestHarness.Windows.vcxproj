@@ -140,6 +140,7 @@
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="RoundTripDataPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml">
@@ -147,9 +148,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
     <None Include="TestHarness.Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +160,12 @@
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="RoundTripDataPoint.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

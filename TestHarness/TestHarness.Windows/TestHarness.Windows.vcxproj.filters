@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainPage.xaml.cpp" />
+    <ClCompile Include="RoundTripDataPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainPage.xaml.h" />
@@ -35,9 +36,7 @@
     <ClInclude Include="include\impl\pplppimplvs12.h">
       <Filter>Include\impl</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
+    <ClInclude Include="RoundTripDataPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestHarness.Windows_TemporaryKey.pfx" />
@@ -55,5 +54,8 @@
     <Image Include="Assets\SplashScreen.scale-100.png">
       <Filter>Assets</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
 </Project>

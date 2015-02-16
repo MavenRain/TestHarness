@@ -24,6 +24,7 @@ using namespace Windows::UI::Xaml::Navigation;
 
 using namespace pplpp;
 using namespace Concurrency;
+using namespace std;
 
 
 
@@ -34,62 +35,41 @@ MainPage::MainPage()
 	InitializeComponent();
 }
 
-double MainPage::InternetConnectSocketAsync()
-{
-	auto _canceled = false;
-	unsigned int retries = 4;
-	long long task_timeout_ms = 400;
-	auto currentSpeed = 0.0;
-	auto _socketTcpWellKnownHostNames = ref new Array <String^>(4){ "google.com", "bing.com", "facebook.com", "yahoo.com" };
-	for (unsigned int trialHostIndex = 0; trialHostIndex < retries; ++trialHostIndex)
-	{
-		auto _serverHost = ref new HostName(_socketTcpWellKnownHostNames[trialHostIndex]);
-
-		auto _clientSocket = ref new StreamSocket();
-		_clientSocket->Control->NoDelay = true;
-		_clientSocket->Control->QualityOfService = SocketQualityOfService::LowLatency;
-		_clientSocket->Control->KeepAlive = false;
-		//tasks must complete in a fixed amount of time, cancel otherwise..
-		timed_cancellation_token_source tcs;
-		std::chrono::milliseconds timeout(task_timeout_ms);
-		try
-		{
-			create_task([&]
-			{
-				tcs.cancel(timeout);
-				return _clientSocket->ConnectAsync(_serverHost, "80", SocketProtectionLevel::PlainSocket);
-			}, tcs.get_token()).then([&]
-			{
-				currentSpeed += _clientSocket->Information->RoundTripTimeStatistics.Min / 1000000.0;
-			}).get();
-		}
-		catch (Platform::COMException^ e)
-		{
-			currentSpeed = 0.0;
-			retries--;
-		}
-		catch (task_canceled&)
-		{
-			currentSpeed = 0.0;
-			retries--;
-		}
-		delete _clientSocket;
-	}
-	//Compute speed...
-	return currentSpeed / retries;
-	
-}
-
 void TestHarness::MainPage::testButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	auto _listOfRoundTripTimes = ref new Vector<double>();
+	wstring _numberOfTrials(numberOfTrials->Text->Data());
+	wstringstream stringToIntegerConverter;
+	stringToIntegerConverter << _numberOfTrials;
+	unsigned int __numberOfTrials = 1;
+	stringToIntegerConverter >> __numberOfTrials;
+
+	
+	auto _listOfRoundTripTimes = ref new Vector<RoundTripDataPoint^>();
 	listOfRoundTripTimes->ItemsSource = _listOfRoundTripTimes;
-	auto roundTripTotal = 0.0;
-	for (unsigned int trialIndex = 0; trialIndex < (unsigned int)numberOfTrials->Text->Data(); trialIndex++)
-	{
-		auto trialRoundTripTime = InternetConnectSocketAsync();
-		_listOfRoundTripTimes->Append(trialRoundTripTime);
-		roundTripTotal += trialRoundTripTime;
-	}
-	meanRoundTripTime->Text = roundTripTotal.ToString();
+	create_task([_listOfRoundTripTimes, __numberOfTrials, this]
+	{ 
+		auto roundTripTotal = 0.0;
+		for (unsigned int trialIndex = 0; trialIndex < __numberOfTrials; trialIndex++)
+		{
+			auto serverHost = ref new Array<HostName^>{ ref new HostName(ref new String(L"google.com")), ref new HostName(ref new String(L"bing.com")), ref new HostName(ref new String(L"facebook.com")), ref new HostName(ref new String(L"yahoo.com")) };
+			auto streamSocket = ref new Array<StreamSocket^>{ ref new StreamSocket(), ref new StreamSocket(), ref new StreamSocket(), ref new StreamSocket() };
+			float64 currentSpeed = 0.0;
+			auto socketConnectTasks = new vector<task<void>>();
+			for (unsigned int connectTaskIndex = 0; connectTaskIndex < serverHost->Length; connectTaskIndex++)
+			{
+				create_task(streamSocket[connectTaskIndex]->ConnectAsync(serverHost[connectTaskIndex], ref new String(L"80"), SocketProtectionLevel::PlainSocket));
+			}
+			for (unsigned int connectTaskIndex = 0; connectTaskIndex < serverHost->Length; connectTaskIndex++)
+			{
+				create_task([connectTaskIndex, &currentSpeed, streamSocket, serverHost]
+				{ currentSpeed += streamSocket[connectTaskIndex]->Information->RoundTripTimeStatistics.Min / 1000000.0;
+				});
+			}
+
+			float32 trialSpeed = currentSpeed / (float32)serverHost->Length;
+			_listOfRoundTripTimes->Append(ref new RoundTripDataPoint(trialSpeed));
+			roundTripTotal += currentSpeed / serverHost->Length;
+		}
+		meanRoundTripTime->Text = (roundTripTotal / __numberOfTrials).ToString();
+	});
 }

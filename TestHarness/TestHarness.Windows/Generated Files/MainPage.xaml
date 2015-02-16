@@ -13,7 +13,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="91,388,0,0" TextWrapping="Wrap" Text="# of trials" FontSize="29" VerticalAlignment="Top" Height="62" Width="190"/>
         <ListView x:Name="listOfRoundTripTimes" HorizontalAlignment="Left" Height="515" Margin="752,204,0,0" VerticalAlignment="Top" Width="508">
             <ListView.ItemTemplate>
-                <DataTemplate></DataTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="29" Text="{Binding RoundTripTrialPoint}" />
+                </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <TextBlock HorizontalAlignment="Left" Margin="758,88,0,0" TextWrapping="Wrap" Text="Round Trip Times" FontSize="29" VerticalAlignment="Top" Height="70" Width="460"/>

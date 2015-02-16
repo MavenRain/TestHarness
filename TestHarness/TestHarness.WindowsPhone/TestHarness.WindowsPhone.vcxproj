@@ -102,11 +102,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="Assets\Logo.scale-240.png" />
     <Image Include="Assets\SmallLogo.scale-240.png" />
     <Image Include="Assets\Square71x71Logo.scale-240.png" />
@@ -118,6 +113,11 @@
     <ClCompile Include="MainPage.xaml.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,6 +7,8 @@
 
 #include "MainPage.g.h"
 #include <vector>
+#include <sstream>
+#include <RoundTripDataPoint.h>
 
 
 namespace TestHarness
