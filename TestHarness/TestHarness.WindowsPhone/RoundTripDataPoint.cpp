@@ -1,4 +1,3 @@
-
 #pragma once
 #include "pch.h"
 
@@ -15,4 +14,3 @@ void RoundTripDataPoint::RoundTripTrialPoint::set(float32 newTrialPoint)
 {
 	roundTripTrialPoint = newTrialPoint;
 }
-

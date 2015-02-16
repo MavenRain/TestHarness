@@ -26,9 +26,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainPage.xaml.cpp" />
+    <ClCompile Include="RoundTripDataPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainPage.xaml.h" />
+    <ClInclude Include="RoundTripDataPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml" />

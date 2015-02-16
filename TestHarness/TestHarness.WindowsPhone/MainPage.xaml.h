@@ -6,6 +6,28 @@
 #pragma once
 
 #include "MainPage.g.h"
+#include <sstream>
+#include <RoundTripDataPoint.h>
+#include <vector>
+#include <array>
+
+using namespace Platform;
+using namespace Platform::Collections;
+using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
+using namespace Windows::Networking;
+using namespace Windows::Networking::Sockets;
+using namespace Windows::UI::Xaml;
+using namespace Windows::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Controls::Primitives;
+using namespace Windows::UI::Xaml::Data;
+using namespace Windows::UI::Xaml::Input;
+using namespace Windows::UI::Xaml::Media;
+using namespace Windows::UI::Xaml::Navigation;
+
+using namespace Concurrency;
+using namespace std;
+using namespace Windows::System::Threading;
 
 namespace TestHarness
 {
@@ -23,3 +45,5 @@ namespace TestHarness
 		void testButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }
+
+using namespace TestHarness;

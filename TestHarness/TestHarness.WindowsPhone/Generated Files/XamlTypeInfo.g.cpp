@@ -72,6 +72,16 @@
         return ref new XamlSystemBaseType(typeName);
     }
 
+    if (typeName == L"Object")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
+    if (typeName == L"Single")
+    {
+        return ref new XamlSystemBaseType(typeName);
+    }
+
     if (typeName == L"TestHarness.MainPage")
     {
         ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
@@ -85,13 +95,42 @@
         return userType;
     }
 
+    if (typeName == L"TestHarness.RoundTripDataPoint")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, typeName, GetXamlTypeByName(L"Object"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->AddMemberName(L"RoundTripTrialPoint");
+        userType->SetIsBindable();
+        userType->SetIsLocalType();
+        return userType;
+    }
+
     return nullptr;
 }
 
 ::Windows::UI::Xaml::Markup::IXamlMember^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlMember(::Platform::String^ longMemberName)
 {
-    // No Local Properties
-    (void)longMemberName; // Unused parameter
+    if (longMemberName == L"TestHarness.RoundTripDataPoint.RoundTripTrialPoint")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"RoundTripTrialPoint", L"Single");
+        xamlMember->Getter =
+            [](Object^ instance) -> Object^
+            {
+                auto that = (::TestHarness::RoundTripDataPoint^)instance;
+                auto value = ref new ::Platform::Box<::default::float32>(that->RoundTripTrialPoint);
+                return value;
+            };
+
+        xamlMember->Setter =
+            [](Object^ instance, Object^ value) -> void
+            {
+                auto that = (::TestHarness::RoundTripDataPoint^)instance;
+                auto boxedValue = (::Platform::IBox<::default::float32>^)value;
+                that->RoundTripTrialPoint = boxedValue->Value;
+            };
+        return xamlMember;
+    }
+
     return nullptr;
 }
 
