@@ -10,6 +10,8 @@
 #include <RoundTripDataPoint.h>
 #include <vector>
 #include <array>
+#include <map>
+#include <utility>
 
 using namespace Platform;
 using namespace Platform::Collections;
