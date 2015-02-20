@@ -12,6 +12,7 @@
 #include <array>
 #include <map>
 #include <utility>
+#include <agents.h>
 
 using namespace Platform;
 using namespace Platform::Collections;
