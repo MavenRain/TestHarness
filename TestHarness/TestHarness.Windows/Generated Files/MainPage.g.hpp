@@ -30,6 +30,8 @@ void ::TestHarness::MainPage::InitializeComponent()
     listOfRoundTripTimes = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"listOfRoundTripTimes"));
     // Get the TextBlock named 'meanRoundTripTime'
     meanRoundTripTime = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"meanRoundTripTime"));
+    // Get the TextBlock named 'maxRoundTripTime'
+    maxRoundTripTime = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(static_cast<Windows::UI::Xaml::IFrameworkElement^>(this)->FindName(L"maxRoundTripTime"));
 }
 
 void ::TestHarness::MainPage::Connect(int connectionId, Platform::Object^ target)

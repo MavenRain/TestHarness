@@ -130,12 +130,10 @@ void MainPage::testButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Rou
 	auto trialCount = __numberOfTrials * serverHostNames->size();
 
 	//set time duration for task cancels
-	TimeSpan delay;
-	delay.Duration = 400000;
+	auto timeout = 400U;
 
 	//Prepare cancellation token information for tasks
 	map<unsigned int, cancellation_token_source*> cts;
-	vector<ThreadPoolTimer^> delayTimer;
 
 	//create trial tasks
 	vector<task<void>> connectTask;
@@ -143,21 +141,29 @@ void MainPage::testButton_Click(Platform::Object^ sender, Windows::UI::Xaml::Rou
 	{
 		streamSocket[trialIndex] = ref new StreamSocket();
 		cts.insert(pair<unsigned int, cancellation_token_source*>(trialIndex, new cancellation_token_source()));
-		connectTask.push_back(cancel_after_timeout(create_task(streamSocket[trialIndex]->ConnectAsync(ref new HostName(serverHostNames->at((trialIndex + 1) % serverHostNames->size())), ref new String(L"80"), SocketProtectionLevel::PlainSocket)), *cts[trialIndex], 400U));
+		connectTask.push_back(cancel_after_timeout(create_task(streamSocket[trialIndex]->ConnectAsync(ref new HostName(serverHostNames->at((trialIndex + 1) % serverHostNames->size())), ref new String(L"80"), SocketProtectionLevel::PlainSocket)), *cts[trialIndex], timeout));
 	}
 
 	//execute ping tasks, then calculate the mean and report results
 	when_any(begin(connectTask), end(connectTask))
 		.then([streamSocket, _listOfRoundTripTimes, trialCount, this, serverHostNames](size_t result) mutable
 	{
-		float32 speedTotal = 0.0;
+		auto speedTotal = 0.0F;
+		auto maximumRoundTripTime = 0.0F;
+
 		for (unsigned int trialIndex = 0; trialIndex < trialCount; trialIndex++)
 		{
 			speedTotal += streamSocket[trialIndex]->Information->RoundTripTimeStatistics.Min / 1000000.0F;
-			if (streamSocket[trialIndex]->Information->RoundTripTimeStatistics.Min == 0.000000F) trialCount--;
 			_listOfRoundTripTimes->Append(ref new RoundTripDataPoint(streamSocket[trialIndex]->Information->RoundTripTimeStatistics.Min / 1000000.0F));
+			if (streamSocket[trialIndex]->Information->RoundTripTimeStatistics.Min == 0U)
+			{
+				trialCount--;
+				_listOfRoundTripTimes->RemoveAtEnd();
+			};
+			maximumRoundTripTime = streamSocket[trialIndex]->Information->RoundTripTimeStatistics.Min / 1000000.0F < maximumRoundTripTime ? maximumRoundTripTime : streamSocket[trialIndex]->Information->RoundTripTimeStatistics.Min / 1000000.0F;
 		}
 		meanRoundTripTime->Text = (speedTotal / (float32)(trialCount)).ToString();
+		maxRoundTripTime->Text = maximumRoundTripTime.ToString();
 		delete serverHostNames;
 	});
 }

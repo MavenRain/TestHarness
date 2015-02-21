@@ -37,6 +37,7 @@ namespace TestHarness
         private: ::Windows::UI::Xaml::Controls::TextBox^ numberOfTrials;
         private: ::Windows::UI::Xaml::Controls::ListView^ listOfRoundTripTimes;
         private: ::Windows::UI::Xaml::Controls::TextBlock^ meanRoundTripTime;
+        private: ::Windows::UI::Xaml::Controls::TextBlock^ maxRoundTripTime;
     };
 }
 

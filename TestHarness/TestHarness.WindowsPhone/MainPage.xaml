@@ -9,16 +9,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="testButton" Content="Run Test" HorizontalAlignment="Left" Margin="61,151,0,0" VerticalAlignment="Top" Height="72" Width="285" Click="testButton_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="61,78,0,0" TextWrapping="Wrap" Text="# of trials" FontSize="18"  VerticalAlignment="Top" Height="36" Width="87"/>
-        <TextBox x:Name="numberOfTrials" HorizontalAlignment="Left" Margin="202,78,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Height="36" Width="133"/>
-        <TextBlock HorizontalAlignment="Left" Margin="61,243,0,0" TextWrapping="Wrap" Text="Round Trip Times" TextAlignment="Center" FontSize="18" VerticalAlignment="Top" Height="58" Width="285"/>
-        <ListView x:Name="listOfRoundTripTimes" HorizontalAlignment="Left" Height="195" Margin="61,320,0,0" VerticalAlignment="Top" Width="274">
+        <Button x:Name="testButton" Content="Run Test" HorizontalAlignment="Left" Margin="61,94,0,0" VerticalAlignment="Top" Height="72" Width="285" Click="testButton_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,38,0,0" TextWrapping="Wrap" Text="# of trials" FontSize="18"  VerticalAlignment="Top" Height="36" Width="87"/>
+        <TextBox x:Name="numberOfTrials" HorizontalAlignment="Left" Margin="202,38,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Height="36" Width="133"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,176,0,0" TextWrapping="Wrap" Text="Round Trip Times" TextAlignment="Center" FontSize="18" VerticalAlignment="Top" Height="58" Width="285"/>
+        <ListView x:Name="listOfRoundTripTimes" HorizontalAlignment="Left" Height="195" Margin="61,251,0,0" VerticalAlignment="Top" Width="274">
             <ListView.ItemTemplate>
                 <DataTemplate></DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock HorizontalAlignment="Left" Margin="61,542,0,0" TextWrapping="Wrap" Text="Mean Round Trip Time" FontSize="12" VerticalAlignment="Top" Height="21" Width="126"/>
-        <TextBlock x:Name="meanRoundTripTime" HorizontalAlignment="Left" Margin="261,542,0,0" TextWrapping="Wrap" Text="0" FontSize="18" VerticalAlignment="Top" Height="21" Width="74"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,468,0,0" TextWrapping="Wrap" Text="Mean Round Trip Time" FontSize="12" VerticalAlignment="Top" Height="21" Width="126"/>
+        <TextBlock x:Name="meanRoundTripTime" HorizontalAlignment="Left" Margin="261,468,0,0" TextWrapping="Wrap" Text="0" FontSize="18" VerticalAlignment="Top" Height="21" Width="74"/>
+        <TextBlock HorizontalAlignment="Left" Margin="61,540,0,0" TextWrapping="Wrap" Text="Max Round Trip Time" VerticalAlignment="Top" Height="29" Width="121"/>
+        <TextBlock x:Name="maxRoundTripTime" HorizontalAlignment="Left" Margin="261,534,0,0" TextWrapping="Wrap" Text="0" FontSize="18" VerticalAlignment="Top" Height="26" Width="55"/>
     </Grid>
 </Page>
